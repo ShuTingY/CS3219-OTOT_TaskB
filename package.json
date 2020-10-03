@@ -4,8 +4,8 @@
   "description": "This repository is for CS3219 OTOT task B",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "babel-watch --watch ./index.js || true"
+    "start": "npm run build && ./build/server.js",
+    "dev": "babel-watch --watch ./server.js || true"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,10 @@
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "pg": "^7.6.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^6.3.5",
