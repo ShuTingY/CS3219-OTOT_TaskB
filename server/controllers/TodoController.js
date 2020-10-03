@@ -1,16 +1,16 @@
-import BookService from "../services/BookService";
+import TodoService from "../services/TodoService";
 import Util from "../utils/Utils";
 
 const util = new Util();
 
-class BookController {
-  static async getAllBooks(req, res) {
+class TodoController {
+  static async getAllTodos(req, res) {
     try {
-      const allBooks = await BookService.getAllBooks();
-      if (allBooks.length > 0) {
-        util.setSuccess(200, 'Books retrieved', allBooks);
+      const allTodos = await TodoService.getAllTodos();
+      if (allTodos.length > 0) {
+        util.setSuccess(200, 'Todos retrieved', allTodos);
       } else {
-        util.setSuccess(200, 'No book found');
+        util.setSuccess(200, 'No todo found');
       }
       return util.send(res);
     } catch (error) {
@@ -19,15 +19,15 @@ class BookController {
     }
   }
 
-  static async addBook(req, res) {
-    if (!req.body.title || !req.body.price || !req.body.description) {
+  static async addTodos(req, res) {
+    if (!req.body.title || !req.body.description) {
       util.setError(400, 'Please provide complete details');
       return util.send(res);
     }
-    const newBook = req.body;
+    const newTodo = req.body;
     try {
-      const createdBook = await BookService.addBook(newBook);
-      util.setSuccess(201, 'Book Added!', createdBook);
+      const createdTodo = await TodoService.addTodo(newTodo);
+      util.setSuccess(201, 'Todo Added!', createdTodo);
       return util.send(res);
     } catch (error) {
       util.setError(400, error.message);
@@ -35,19 +35,19 @@ class BookController {
     }
   }
 
-  static async updatedBook(req, res) {
-    const alteredBook = req.body;
+  static async updatedTodo(req, res) {
+    const alteredTodo = req.body;
     const { id } = req.params;
     if (!Number(id)) {
       util.setError(400, 'Please input a valid numeric value');
       return util.send(res);
     }
     try {
-      const updateBook = await BookService.updateBook(id, alteredBook);
-      if (!updateBook) {
-        util.setError(404, `Cannot find book with the id: ${id}`);
+      const updateTodo = await TodoService.updateTodo(id, alteredTodo);
+      if (!updateTodo) {
+        util.setError(404, `Cannot find todo with the id: ${id}`);
       } else {
-        util.setSuccess(200, 'Book updated', updateBook);
+        util.setSuccess(200, 'Todo updated', updateTodo);
       }
       return util.send(res);
     } catch (error) {
@@ -56,7 +56,7 @@ class BookController {
     }
   }
 
-  static async getABook(req, res) {
+  static async getATodo(req, res) {
     const { id } = req.params;
 
     if (!Number(id)) {
@@ -65,12 +65,12 @@ class BookController {
     }
 
     try {
-      const theBook = await BookService.getABook(id);
+      const theTodo = await TodoService.getATodo(id);
 
-      if (!theBook) {
-        util.setError(404, `Cannot find book with the id ${id}`);
+      if (!theTodo) {
+        util.setError(404, `Cannot find todo with the id ${id}`);
       } else {
-        util.setSuccess(200, 'Found Book', theBook);
+        util.setSuccess(200, 'Found todo', theTodo);
       }
       return util.send(res);
     } catch (error) {
@@ -79,7 +79,7 @@ class BookController {
     }
   }
 
-  static async deleteBook(req, res) {
+  static async deleteTodo(req, res) {
     const { id } = req.params;
 
     if (!Number(id)) {
@@ -88,12 +88,12 @@ class BookController {
     }
 
     try {
-      const bookToDelete = await BookService.deleteBook(id);
+      const todoToDelete = await TodoService.deleteTodo(id);
 
-      if (bookToDelete) {
-        util.setSuccess(200, 'Book deleted');
+      if (todoToDelete) {
+        util.setSuccess(200, 'Todo deleted');
       } else {
-        util.setError(404, `Book with the id ${id} cannot be found`);
+        util.setError(404, `Todo with the id ${id} cannot be found`);
       }
       return util.send(res);
     } catch (error) {
@@ -103,4 +103,4 @@ class BookController {
   }
 }
 
-export default BookController;
+export default TodoController;

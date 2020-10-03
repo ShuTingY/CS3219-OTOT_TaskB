@@ -6,90 +6,85 @@ import app from '../index';
 chai.use(chatHttp);
 const { expect } = chai;
 
-describe('Testing the book endpoints:', () => {
-  it('Valid create a book', (done) => {
-    const book = {
-      title: 'First book',
-      price: '$9.99',
-      description: 'This is the first book'
+describe('Testing the todo endpoints:', () => {
+  it('Valid create a todo', (done) => {
+    const todo = {
+      title: 'First todo',
+      description: 'This is the first todo'
     };
     chai.request(app)
-      .post('/resfulApi/books')
+      .post('/resfulApi/todo')
       .set('Accept', 'application/json')
-      .send(book)
+      .send(todo)
       .end((err, res) => {
         expect(res.status).to.equal(201);
         expect(res.body.data).to.include({
           id: 1,
-          title: book.title,
-          price: book.price,
-          description: book.description
+          title: todo.title,
+          description: todo.description
         });
         done();
       });
   });
 
   it('Invalid incomplete parameters', (done) => {
-    const book = {
-      price: '$10',
+    const todo = {
       description: 'Cook book'
     };
     chai.request(app)
-      .post('/resfulApi/books')
+      .post('/resfulApi/todo')
       .set('Accept', 'application/json')
-      .send(book)
+      .send(todo)
       .end((err, res) => {
         expect(res.status).to.equal(400);
         done();
       });
   });
 
-  it('Valid get all books', (done) => {
+  it('Valid get all todo', (done) => {
     chai.request(app)
-      .get('/resfulApi/books')
+      .get('/resfulApi/todo')
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         res.body.data[0].should.have.property('id');
         res.body.data[0].should.have.property('title');
-        res.body.data[0].should.have.property('price');
         res.body.data[0].should.have.property('description');
         done();
       });
   });
 
-  it('Valid, get a particular book', (done) => {
-    const bookId = 1;
+  it('Valid, get a particular todo', (done) => {
+    const todoId = 1;
     chai.request(app)
-      .get(`/resfulApi/books/${bookId}`)
+      .get(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         res.body.data.should.have.property('id');
         res.body.data.should.have.property('title');
-        res.body.data.should.have.property('price');
         res.body.data.should.have.property('description');
         done();
       });
   });
 
-  it('Invalid id, should not get any book', (done) => {
-    const bookId = 8888;
+  it('Invalid id, should not get any todo', (done) => {
+    const todoId = 8888;
     chai.request(app)
-      .get(`/resfulApi/books/${bookId}`)
+      .get(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(404);
         res.body.should.have.property('message')
-                            .eql(`Cannot find book with the id ${bookId}`);
+                            .eql(`Cannot find todo with the id ${todoId}`);
         done();
       });
   });
 
-  it('INVALID： should not get a particular book with non-numeric id', (done) => {
-    const bookId = 'aaa';
+  it('INVALID： should not get a particular todo with non-numeric id', (done) => {
+    const todoId = 'aaa';
     chai.request(app)
-      .get(`/resfulApi/books/${bookId}`)
+      .get(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -99,60 +94,56 @@ describe('Testing the book endpoints:', () => {
       });
   });
 
-  it('Valid update a book', (done) => {
-    const bookId = 1;
-    const updatedBook = {
-      id: bookId,
-      title: 'Updated Awesome book',
-      price: '$10.99',
-      description: 'We have updated the price'
+  it('Valid update a todo', (done) => {
+    const todoId = 1;
+    const updatedtodo = {
+      id: todoId,
+      title: 'Updated Awesome todo',
+      description: 'We have updated name'
     };
     chai.request(app)
-      .put(`/resfulApi/books/${bookId}`)
+      .put(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
-      .send(updatedBook)
+      .send(updatedtodo)
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        expect(res.body.data.id).equal(updatedBook.id);
-        expect(res.body.data.title).equal(updatedBook.title);
-        expect(res.body.data.price).equal(updatedBook.price);
-        expect(res.body.data.description).equal(updatedBook.description);
+        expect(res.body.data.id).equal(updatedtodo.id);
+        expect(res.body.data.title).equal(updatedtodo.title);
+        expect(res.body.data.description).equal(updatedtodo.description);
         done();
       });
   });
 
   it('Invalid id, no update', (done) => {
-    const bookId = '9999';
-    const updatedBook = {
-      id: bookId,
-      title: 'Updated Awesome book again',
-      price: '$11.99',
-      description: 'We have updated the price'
+    const todoId = '9999';
+    const updatedtodo = {
+      id: todoId,
+      title: 'Updated Awesome todo again',
+      description: 'We have updated the title'
     };
     chai.request(app)
-      .put(`/resfulApi/books/${bookId}`)
+      .put(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
-      .send(updatedBook)
+      .send(updatedtodo)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         res.body.should.have.property('message')
-                            .eql(`Cannot find book with the id: ${bookId}`);
+                            .eql(`Cannot find todo with the id: ${todoId}`);
         done();
       });
   });
 
-  it('Invalid: should not update a book with non-numeric id value', (done) => {
-    const bookId = 'ggg';
-    const updatedBook = {
-      id: bookId,
-      title: 'Updated Awesome book again',
-      price: '$11.99',
-      description: 'We have updated the price'
+  it('Invalid: should not update a todo with non-numeric id value', (done) => {
+    const todoId = 'ggg';
+    const updatedtodo = {
+      id: todoId,
+      title: 'Updated Awesome todo again',
+      description: 'We have updated the description'
     };
     chai.request(app)
-      .put(`/resfulApi/books/${bookId}`)
+      .put(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
-      .send(updatedBook)
+      .send(updatedtodo)
       .end((err, res) => {
         expect(res.status).to.equal(400);
         res.body.should.have.property('message')
@@ -162,10 +153,10 @@ describe('Testing the book endpoints:', () => {
   });
 
 
-  it('Valid: should delete a book', (done) => {
-    const bookId = 1;
+  it('Valid: should delete a todo', (done) => {
+    const todoId = 1;
     chai.request(app)
-      .delete(`/resfulApi/books/${bookId}`)
+      .delete(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -174,23 +165,23 @@ describe('Testing the book endpoints:', () => {
       });
   });
 
-  it('Invalid: should not delete a book with invalid id', (done) => {
-    const bookId = 777;
+  it('Invalid: should not delete a todo with invalid id', (done) => {
+    const todoId = 777;
     chai.request(app)
-      .delete(`/resfulApi/books/${bookId}`)
+      .delete(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(404);
         res.body.should.have.property('message')
-                            .eql(`Book with the id ${bookId} cannot be found`);
+                            .eql(`Todo with the id ${todoId} cannot be found`);
         done();
       });
   });
 
-  it('Invalid It should not delete a book with non-numeric id', (done) => {
-    const bookId = 'bbb';
+  it('Invalid It should not delete a todo with non-numeric id', (done) => {
+    const todoId = 'bbb';
     chai.request(app)
-      .delete(`/resfulApi/books/${bookId}`)
+      .delete(`/resfulApi/todo/${todoId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(400);

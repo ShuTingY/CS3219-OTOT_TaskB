@@ -9,7 +9,7 @@ module.exports = {
   // },
 
   development: {
-    database: 'book',
+    database: 'todo',
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     host: '127.0.0.1',
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   test: {
-    database: 'book_test',
+    database: 'todo_test',
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     host: '127.0.0.1',

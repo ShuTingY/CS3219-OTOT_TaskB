@@ -1,10 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Book = sequelize.define('Book', {
+  const Todo = sequelize.define('Todo', {
     title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    price: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -13,5 +9,5 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  return Book;
+  return Todo;
 };
