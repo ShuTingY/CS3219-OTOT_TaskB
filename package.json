@@ -9,9 +9,7 @@
     "build": "rm -rf ./build && babel -d ./build ./server -s",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
-    "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
-    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage"
-  
+    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage"
   },
   "repository": {
     "type": "git",
@@ -26,6 +24,7 @@
   "homepage": "https://github.com/ShuTingY/CS3219-OTOT_TaskB#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "coveralls": "^3.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
@@ -44,6 +43,7 @@
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",

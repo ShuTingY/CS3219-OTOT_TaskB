@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.com/ShuTingY/CS3219-OTOT_TaskB.svg?branch=master)](https://travis-ci.com/ShuTingY/CS3219-OTOT_TaskB) 
+[![Coverage Status](https://coveralls.io/repos/github/ShuTingY/CS3219-OTOT_TaskB/badge.svg?branch=master)](https://coveralls.io/github/ShuTingY/CS3219-OTOT_TaskB?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2990cf21579d0a88f159/maintainability)](https://codeclimate.com/github/ShuTingY/CS3219-OTOT_TaskB/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2990cf21579d0a88f159/test_coverage)](https://codeclimate.com/github/ShuTingY/CS3219-OTOT_TaskB/test_coverage)
+
 # About
 
 This repository is for CS3219 OTOT task B Resful api with posgres
