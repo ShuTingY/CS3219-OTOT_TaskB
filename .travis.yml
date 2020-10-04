@@ -14,6 +14,7 @@ env:
   - NODE_ENV=test
   - DB_USER=tester
   - DB_PASS=  
+  - CC_TEST_REPORTER_ID=ad774adde14659710627fa169c87f7366d0f3fdbdbdf8d18b5182ed3b6241c49
 
 before_script:
   - psql -c 'create database todo_test;' -U postgres
@@ -21,8 +22,12 @@ before_script:
   - npm run build
   - npm install -g sequelize-cli
   - sequelize db:migrate
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - npm test
 after_success:
   - npm run coverage
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   
