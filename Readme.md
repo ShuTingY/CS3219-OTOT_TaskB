@@ -27,10 +27,7 @@ This repository is for CS3219 OTOT task B Resful api with posgres
 * RUN `npm run dev` to run in development environment.
 * Run `npm run test` for testing.
 
-
-
-
-
+* The API is deployed on Heroku and can be access via link: <https://resfulapi-taskb.herokuapp.com/>
 
 # Reference
 Victor Steven: [Restful API with NodeJS, Express, PostgreSQL, Sequelize, Travis, Mocha, Coveralls and Code Climate.](https://medium.com/@victorsteven/restful-api-with-nodejs-express-postgresql-sequelize-travis-mocha-coveralls-and-code-climate-f28715f7a014)
