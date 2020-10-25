@@ -21,7 +21,8 @@ describe('Testing the todo endpoints:', () => {
         expect(res.body.data).to.include({
           id: 1,
           title: todo.title,
-          description: todo.description
+          description: todo.description,
+          isCompleted: false
         });
         done();
       });
@@ -50,6 +51,7 @@ describe('Testing the todo endpoints:', () => {
         res.body.data[0].should.have.property('id');
         res.body.data[0].should.have.property('title');
         res.body.data[0].should.have.property('description');
+        res.body.data[0].should.have.property("isCompleted");
         done();
       });
   });
@@ -64,6 +66,7 @@ describe('Testing the todo endpoints:', () => {
         res.body.data.should.have.property('id');
         res.body.data.should.have.property('title');
         res.body.data.should.have.property('description');
+        res.body.data.should.have.property("isCompleted");
         done();
       });
   });
@@ -99,7 +102,8 @@ describe('Testing the todo endpoints:', () => {
     const updatedtodo = {
       id: todoId,
       title: 'Updated Awesome todo',
-      description: 'We have updated name'
+      description: 'We have updated name',
+      isCompeleted: true
     };
     chai.request(app)
       .put(`/resfulApi/todo/${todoId}`)
@@ -110,6 +114,7 @@ describe('Testing the todo endpoints:', () => {
         expect(res.body.data.id).equal(updatedtodo.id);
         expect(res.body.data.title).equal(updatedtodo.title);
         expect(res.body.data.description).equal(updatedtodo.description);
+        expect(res.body.data.isCompeleted).equal(true);
         done();
       });
   });
