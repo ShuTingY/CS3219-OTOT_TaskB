@@ -18,7 +18,7 @@ This repository is for CS3219 OTOT task B Resful api with posgres
 * For this project, we are using database name `todo` and `todo_test`. Make sure you have created these database in postgres under the username you used in the .env file before proceed on. 
 
 * run `npm i` to install all the dependencies
-* run `sequelize db:migrate` to create tables in the database
+* run `npm run db` to create tables in the database
 
 * if using windows, change the script for test to ` "test": "SET NODE_ENV=test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/tests/test.js --timeout 20000 --exit"`
 

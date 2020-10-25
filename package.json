@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec babel-node ./server/index.js",
+    "db": "sequelize db:migrate:undo:all  && sequelize db:migrate",
     "test": "export NODE_ENV=test && export DB_NAME=todo_test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/tests/test.js --timeout 20000 --exit",
     "build": "rm -rf ./build && babel -d ./build ./server -s",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
