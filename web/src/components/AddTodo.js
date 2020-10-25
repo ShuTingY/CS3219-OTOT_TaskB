@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import 'semantic-ui-css/semantic.min.css';
+import {Segment, Form, Input, TextArea } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 export class AddTodo extends Component {
     state = {
@@ -18,32 +18,30 @@ export class AddTodo extends Component {
 
    
     render() {
+      const {title, description} = this.state;
         return (
-            <form onSubmit= {this.onSubmit} style= {{display: 'flex' }}>
-              
-                <input 
-                type='text' 
-                name='title' 
-                style={{ flex:'10', padding: '5px'}}
-                placeholder='Add Todo...'
-                    value={this.state.title}
-                    onChange={this.onChange}
+          <Segment>
+            <Form onSubmit={this.onSubmit}>
+              <Form.Field required
+                label="Todo title"
+                id='todo-title'
+                control={Input}
+                name='title'
+                value={title}
+                placeholder='Add new todo...'
+                onChange={this.onChange}
                 />
-                <input 
-                type='text' 
-                name='description' 
-                style={{ flex:'10', padding: '5px'}}
-                placeholder='Description...(optional)'
-                    value={this.state.description}
-                    onChange={this.onChange}
+                <Form.Field
+                  id='from-textarea-control-description'
+                  control={TextArea}
+                  name='description'
+                  value={description}
+                  placeholder='Additional details...(optional)'
+                  onChange={this.onChange}
                 />
-                <input 
-                    type='submit'
-                    value='submit'
-                    className='btn'
-                    style={{flex:1}}
-                />
-            </form>
+                <Form.Button icon='add' inverted color='green' disabled={!title}/>
+            </Form>
+          </Segment>
         )
     }
 }

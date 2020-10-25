@@ -50,13 +50,13 @@ class App extends Component {
       axios.post('/resfulApi/todo', {
         title
       })
-      .then(res => this.setState({ todos: [...this.state.todos, res.data]}))
+      .then(res => this.setState({ todos: [...this.state.todos, res.data.data]}))
     } else {
       axios.post('/resfulApi/todo', {
         title,
         description
       })
-      .then(res => this.setState({ todos: [...this.state.todos, res.data]}))
+      .then(res => this.setState({ todos: [...this.state.todos, res.data.data]}))
 
     }
     
@@ -74,8 +74,9 @@ class App extends Component {
         <Container 
          style={{ padding: '2em 5em', width:'50%' }}>
 
-        
+          <h1>Add todo</h1>
           <AddTodo addTodo = {this.addTodo} />
+          <h1>Todo list:</h1>
           <Todos todos={this.state.todos}  
           markComplete = {this.markComplete}
             delTodo = {this.delTodo}

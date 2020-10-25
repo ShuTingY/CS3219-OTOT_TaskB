@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Button, Item, Checkbox, Grid } from 'semantic-ui-react'
+import { Segment, Button, Item, Checkbox, Grid, Divider } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 
 //rec TAB
@@ -29,9 +29,13 @@ export class TodoItem extends Component {
                       <Item.Meta style={{textDecoration: isCompleted ?'line-through' : 'none'}}
                       >Create at {new Date(createdAt).toLocaleDateString()}</Item.Meta>
                       {description 
-                      ? <Item.Description style={{textDecoration: isCompleted ?'line-through' : 'none'}}> 
-                        
-                      Additional notes: <br/> {description} </Item.Description>
+                      ?
+                        <React.Fragment>
+                       <Divider/>
+                      <Item.Description style={{textDecoration: isCompleted ?'line-through' : 'none'}}> 
+
+                      <h5>Additional details: </h5> <pre> {description} </pre> </Item.Description>
+                      </React.Fragment>
                       : null
                       } 
                       </Item.Content>
@@ -40,11 +44,7 @@ export class TodoItem extends Component {
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Button.Group icon attached='right'  floated='right'>
-                          <Button basic color='green'
-                                  icon='edit' 
-                                  attached='right' />
-
-                          <Button basic color='red' 
+                       <Button inverted color='red' 
                                   icon='delete' 
                                   attached='right'
                                   onClick={this.props.delTodo.bind(this,id)}
@@ -53,11 +53,7 @@ export class TodoItem extends Component {
                     </Grid.Column>
                   </Grid.Row>
                   </Grid>
-                  
-                
-                  
-                 
-                  
+
             </Segment>
         )
     }
@@ -68,17 +64,5 @@ TodoItem.propTypes = {
     markComplete: PropTypes.func.isRequired,
     delTodo: PropTypes.func.isRequired
 };
-
-const btnStyle = {
-    background:'#ff0000',
-    color: "#fff",
-    border: 'none',
-    padding: '5px 9px',
-    cursor: 'pointer',
-    float: 'right'
-
-}
-
-
 
 export default TodoItem
