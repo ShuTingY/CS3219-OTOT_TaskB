@@ -16,7 +16,7 @@ provider:
 
 functions:
   app:
-    handler: build/server/index.handler
+    handler: build/server/app.handler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'

@@ -33,7 +33,9 @@ script:
   - npm test
 after_success:
   - npm run coverage
-
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  
 before_deploy:
   - npm install -g serverless
   - export NODE_EVN=production && npm run build
@@ -45,6 +47,3 @@ deploy:
   on: 
     branch: serverless
 
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-  
