@@ -1,13 +1,6 @@
+dist: xenial
 language: node_js
-node_js:
-  - "stable"
-cache:
-  directories:
-    - "node_modules"
-install:
-  - npm install
-services:
-  - postgresql
+os: linux
 
 env:
   global:
@@ -19,13 +12,20 @@ env:
 jobs:
   include:
     - node_js: '12'
+cache:
+  directories:
+    - "node_modules"
+services:
+  - postgresql
+install:
+  - npm install
 
 before_script:
   - psql -c 'create database todo_test;' -U postgres
   - psql -c "CREATE USER tester WITH PASSWORD null;" -U postgres
   - npm run build
   - npm install -g sequelize-cli
-  - sequelize db:migrate
+  - npm run db
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
@@ -33,6 +33,7 @@ script:
   - npm test
 after_success:
   - npm run coverage
+
 before_deploy:
   - npm install -g serverless
   - export NODE_EVN=production && npm run build
@@ -42,7 +43,7 @@ deploy:
     - sls deploy
   skip_cleanup: true
   on: 
-    branch serverless
+    branch: serverless
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
