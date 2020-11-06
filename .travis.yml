@@ -9,62 +9,9 @@ env:
   - DB_USER=tester
   - DB_PASS=  
   - CC_TEST_REPORTER_ID=ad774adde14659710627fa169c87f7366d0f3fdbdbdf8d18b5182ed3b6241c49
-
-deploy_service_job: &deploy_service_job
-  cache:
-    directories:
-      - node_modules
-      - ${SERVICE_PATH}/node_modules
-
-  install :
-    - npm install -g serverless
-    - travis_retry npm install
-    - cd ${SERVICE_PATH}
-    - travis_retry npm install
-    - cd -
-
-  script:
-    - cd ${SERVICE_PATH}
-    - serverless deploy -s ${TRAVIS_BRANCH}
-    - cd -
-
-
-environments:
-  - &PRODUCTION_ENV
-    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-
-  - &DEVELOPMENT_ENV
-    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID_DEV}
-    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY_DEV}
-
 jobs:
   include:
     - node_js: '12'
-     - <<: *DEPLOY_SERVICE_JOB
-      name: "Deploy TODO API"
-      if: tag !~ /^rm-stage-.*/ type = push AND branch = connectToAWSLambda
-      env:
-        - SERVICE_PATH="todo-api"
-        - STAGE_NAME=${TRAVIS_BRANCH}
-        - *DEVELOPMENT_ENV
-
-    - <<: *DEPLOY_SERVICE_JOB
-      name: "Deploy Todo API"
-      if: tag !~ /^rm-stage-.*/ type = push AND branch = master
-      env:
-        - SERVICE_PATH="todo-api"
-        - STAGE_NAME=prod
-        - *PRODUCTION_ENV
-    
-        - <<: *REMOVE_SERVICE_JOB
-          name: "Remove Todo API"
-          if: tag =~ /^rm-stage-.*/
-          env:
-            - SERVICE_PATH="todo-api"
-            - STAGE_NAME=${TRAVIS_TAG:9}
-            - *DEVELOPMENT_ENV
-
 cache:
   directories:
     - "node_modules"
@@ -86,16 +33,14 @@ script:
   - npm test
 after_success:
   - npm run coverage
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-  
+
 before_deploy:
   - npm install -g serverless
   - export NODE_EVN=production && npm run build
 deploy:
   provider: script
   script:
-    - sls deploy -s ${STAGE_NAME}
+    - sls deploy
   skip_cleanup: true
   on: 
     branch: serverless
