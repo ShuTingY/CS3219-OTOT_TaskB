@@ -1,0 +1,25 @@
+app: TodoServerless
+service: todo-api
+
+provider:
+  name: aws
+  runtime: nodejs12.x 
+  stage: dev
+  region: us-east-1
+  environment:
+    NODE_ENV: production
+    DB_NAME: ${env.DB_NAME}
+    DB_USER: ${env.DB_USER}
+    DB_PASS: ${env.DB_PASS}
+    DB_PORT: ${env.DB_PORT}
+    DB_HOST: ${env.DB_HOST}
+
+functions:
+  app:
+    handler: build/server/index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+plugin:
+  - serverless-offline

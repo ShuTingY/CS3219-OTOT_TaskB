@@ -21,7 +21,6 @@ class App extends Component {
     })
     axios.get('/resfulApi/todo')
     .then(res => {
-      console.log(res.data.data);
       this.setState({todos:res.data.data})
     })
   }

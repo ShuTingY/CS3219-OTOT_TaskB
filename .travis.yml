@@ -16,6 +16,9 @@ env:
   - DB_USER=tester
   - DB_PASS=  
   - CC_TEST_REPORTER_ID=ad774adde14659710627fa169c87f7366d0f3fdbdbdf8d18b5182ed3b6241c49
+jobs:
+  include:
+    - node_js: '12'
 
 before_script:
   - psql -c 'create database todo_test;' -U postgres
@@ -30,5 +33,17 @@ script:
   - npm test
 after_success:
   - npm run coverage
+before_deploy:
+  - npm install -g serverless
+  - export NODE_EVN=production && npm run build
+deploy:
+  provider: script
+  script:
+    - sls deploy
+  skip_cleanup: true
+  on: 
+    branch serverless
+
+after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   
