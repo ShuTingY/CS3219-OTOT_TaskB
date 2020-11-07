@@ -4,14 +4,14 @@
   "description": "This repository is for CS3219 OTOT task B Resful api with posgres",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./server/index.js",
+    "dev": "nodemon --exec babel-node ./server/bin/www.js",
     "db": "sequelize db:migrate:undo:all  && sequelize db:migrate",
     "test": "export NODE_ENV=test && export DB_NAME=todo_test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/tests/test.js --timeout 20000 --exit",
     "build": "rm -rf ./build && babel -d ./build ./server -s",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
     "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage",
-    "start": "npm run build && sequelize db:migrate && node ./build/index.js"
+    "start": "npm run build && sequelize db:migrate && node ./build/bin/www.js"
   },
   "repository": {
     "type": "git",

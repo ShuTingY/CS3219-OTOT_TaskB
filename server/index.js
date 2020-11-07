@@ -8,14 +8,14 @@ dotenv.config();
 export const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-const port = process.env.PORT || 5000;
+// const port = process.env.PORT || 5000;
 
 app.use('/resfulApi/todo', todoRoutes);
 
 app.get('*', (req, res) => res.status(200).send({
    message: 'Welcome to this API.'
 }));
-app.listen(port, () => {
-   console.log(`Server is running on PORT ${port}`);
-});
+// app.listen(port, () => {
+//    console.log(`Server is running on PORT ${port}`);
+// });
 export const handler=serverless(app);
