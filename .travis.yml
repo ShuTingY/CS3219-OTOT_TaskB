@@ -4,10 +4,6 @@ os: linux
 
 env:
   global:
-  - NODE_ENV=test
-  - DB_NAME=todo_test
-  - DB_USER=tester
-  - DB_PASS=  
   - CC_TEST_REPORTER_ID=ad774adde14659710627fa169c87f7366d0f3fdbdbdf8d18b5182ed3b6241c49
 jobs:
   include:
