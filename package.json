@@ -4,7 +4,7 @@
   "description": "This repository is for CS3219 OTOT task B Resful api with posgres",
   "main": "index.js",
   "scripts": {
-    "dev": "export NODE_ENV=development && export DB_NAME=todo && nodemon --exec babel-node ./server/bin/www.js",
+    "dev": "export NODE_ENV=development && export DB_NAME=todo && nodemon --exec babel-node ./server/bin/www",
     "db": "sequelize db:migrate:undo:all  && sequelize db:migrate",
     "test": "export NODE_ENV=test && export DB_NAME=todo_test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/tests/test.js --timeout 20000 --exit",
     "build": "rm -rf ./build && babel -d ./build ./server -s",
@@ -35,9 +35,7 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
-    "serverless-http": "^2.6.0"
-  },
-  "devDependencies": {
+    "serverless-http": "^2.6.0",
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/node": "^7.10.5",
@@ -45,7 +43,9 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/register": "^7.11.5",
     "@babel/runtime": "^7.11.2",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.1.0"
+  },
+  "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.1.0",
