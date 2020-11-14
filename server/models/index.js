@@ -8,7 +8,6 @@ const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 
 const config = configJson[env];
 console.log('this is the environment: ', env);
-console.log('this is the environment: ', config);
 
 const db = {};
 
@@ -16,7 +15,7 @@ let sequelize;
 if (env === 'production') {
   console.log("production");
   sequelize = new Sequelize(
-      config.url
+      process.env[config.use_env_variable]
     ,{
         ...config,
       pool: {
