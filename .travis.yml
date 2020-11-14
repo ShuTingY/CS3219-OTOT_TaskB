@@ -39,5 +39,5 @@ deploy:
     - sls deploy
   skip_cleanup: true
   on: 
-    branch: serverless
+    branch: master
 
