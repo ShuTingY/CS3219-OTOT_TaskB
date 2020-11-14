@@ -21,7 +21,6 @@ before_script:
   - psql -c "CREATE USER tester WITH PASSWORD null;" -U postgres
   - npm run build
   - npm install -g sequelize-cli
-  - npm run db
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
