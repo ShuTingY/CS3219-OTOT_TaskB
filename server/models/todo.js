@@ -6,8 +6,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue:false
+    }
   });
   return Todo;
 };

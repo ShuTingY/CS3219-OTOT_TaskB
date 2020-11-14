@@ -20,11 +20,12 @@ class TodoController {
   }
 
   static async addTodos(req, res) {
-    if (!req.body.title || !req.body.description) {
-      util.setError(400, 'Please provide complete details');
+    console.log(req.body);
+    if (!req.body.title ) {
+      util.setError(400, 'Please provide a title');
       return util.send(res);
     }
-    const newTodo = req.body;
+    let newTodo = req.body;
     try {
       const createdTodo = await TodoService.addTodo(newTodo);
       util.setSuccess(201, 'Todo Added!', createdTodo);
@@ -36,6 +37,8 @@ class TodoController {
   }
 
   static async updatedTodo(req, res) {
+    console.log("---Updating todo");
+    console.log(req);
     const alteredTodo = req.body;
     const { id } = req.params;
     if (!Number(id)) {
