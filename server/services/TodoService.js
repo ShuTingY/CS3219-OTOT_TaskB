@@ -10,7 +10,6 @@ class TodoService {
   }
 
   static async addTodo(newTodo) {
-    console.log(newTodo);
     try {
       return await database.Todo.create(newTodo);
     } catch (error) {
@@ -20,7 +19,6 @@ class TodoService {
   }
 
   static async updateTodo(id, updateTodo) {
-    console.log(updateTodo);
     try {
       const todoToUpdate = await database.Todo.findOne({
         where: { id: Number(id) }

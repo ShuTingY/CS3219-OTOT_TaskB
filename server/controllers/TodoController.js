@@ -20,7 +20,6 @@ class TodoController {
   }
 
   static async addTodos(req, res) {
-    console.log(req.body);
     if (!req.body.title ) {
       util.setError(400, 'Please provide a title');
       return util.send(res);
@@ -38,7 +37,6 @@ class TodoController {
 
   static async updatedTodo(req, res) {
     console.log("---Updating todo");
-    console.log(req);
     const alteredTodo = req.body;
     const { id } = req.params;
     if (!Number(id)) {

@@ -4,14 +4,14 @@
   "description": "This repository is for CS3219 OTOT task B Resful api with posgres",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./server/index.js",
-    "db": "sequelize db:migrate:undo:all  && sequelize db:migrate",
+    "dev": "nodemon --exec babel-node ./server/bin/www",
+    "db": "sequelize db:migrate:undo:all  && sequelize db:migrate && sequelize db:seed:all",
     "test": "export NODE_ENV=test && export DB_NAME=todo_test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/tests/test.js --timeout 20000 --exit",
     "build": "rm -rf ./build && babel -d ./build ./server -s",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
     "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage",
-    "start": "npm run build && sequelize db:migrate && node ./build/index.js"
+    "start": "node ./build/bin/www.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ShuTingY/CS3219-OTOT_TaskB#readme",
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.12.5",
     "body-parser": "^1.19.0",
     "coveralls": "^3.1.0",
     "dotenv": "^8.2.0",
@@ -33,9 +34,8 @@
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
-    "sequelize-cli": "^6.2.0"
-  },
-  "devDependencies": {
+    "sequelize-cli": "^6.2.0",
+    "serverless-http": "^2.6.0",
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/node": "^7.10.5",
@@ -43,7 +43,9 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/register": "^7.11.5",
     "@babel/runtime": "^7.11.2",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.1.0"
+  },
+  "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.1.0",
@@ -51,7 +53,8 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
     "mocha": "^8.1.3",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "serverless-offline": "^6.8.0"
   },
   "engines": {
     "node": "12.18.0",
