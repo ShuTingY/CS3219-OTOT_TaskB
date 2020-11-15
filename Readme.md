@@ -42,13 +42,17 @@ This repository is for CS3219 OTOT task B Restful api with postgres
 
 # Fronted
 
-A SPA webpage is created using reactjs.
+A SPA webpage is created using reactjs and is deploy at <https://shutingy.github.io/OTOT_taskB-frontend/>
 
-## Before start the webpage
+### run the application locally
+
+### Before start the webpage
 
 * At the project root directly run `cd web`
 
 * Run `npm i` to install all the dependencies
+
+### run the webpage locally
 
 * Run `npm run start` to start the application
 
