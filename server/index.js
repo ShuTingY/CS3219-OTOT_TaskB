@@ -9,7 +9,11 @@ export const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // const port = process.env.PORT || 5000;
-
+app.use((req, res, next) => {
+   res.header('Access-Control-Allow-Origin', '*');
+   next();
+ });
+ 
 app.use('/resfulApi/todo', todoRoutes);
 
 app.get('*', (req, res) => res.status(200).send({
