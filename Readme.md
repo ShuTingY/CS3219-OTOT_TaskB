@@ -5,7 +5,7 @@
 
 # About
 
-This repository is for CS3219 OTOT task B Resful api with posgres
+This repository is for CS3219 OTOT task B Restful api with postgres
 
 # Setting up
 
@@ -15,19 +15,46 @@ This repository is for CS3219 OTOT task B Resful api with posgres
 
 * Ensure that PostgreSQP server is running, if you are using mac OS, run `brew services start postgresql`. For other os you can run respective command.
 
-* For this project, we are using database name `todo` and `todo_test`. Make sure you have created these database in postgres under the username you used in the .env file before proceed on. 
+* For this project, we are using database name `todo` and `todo_test`. Make sure you have created these database in local postgres under the username you used in the `.env` file before proceed on. 
 
 * run `npm i` to install all the dependencies
 * run `npm run db` to create tables in the database
 
-* if using windows, change the script for test to ` "test": "SET NODE_ENV=test &&  sequelize db:migrate:undo:all  && sequelize db:migrate  && nyc --require @babel/register  mocha ./server/tests/test.js --timeout 20000 --exit"`
-
-# Script
+# Script to run the server on localhost
 
 * RUN `npm run dev` to run in development environment.
+* You can access the application through: <http://localhost/5000>
 * Run `npm run test` for testing.
 
-* The API is deployed on Heroku and can be access via link: <https://resfulapi-taskb.herokuapp.com/>
+* The API is deployed on serverless server and can be access via link: <https://6x34q4nhgb.execute-api.us-east-2.amazonaws.com/production/>
+
+# Endpoints
+
+|Method	  | Description	      |  Endpoints              |
+|---------|:-----------------:|:-----------------------:|
+|POST	    |Add a todo         |	/resfulApi/todo         |
+|GET	    |Get all the todos	| /resfulApi/todo         |
+|PUT	    |Update a todo	    | /resfulApi/todo/:todoId |
+|GET	    |Get a todo	        | /resfulApi/todo/:todoId | 
+|DELETE   |	Delete a todo	    | /resfulApi/todo/:todoId |
+
+
+
+# Fronted
+
+A SPA webpage is created using reactjs.
+
+## Before start the webpage
+
+* At the project root directly run `cd web`
+
+* Run `npm i` to install all the dependencies
+
+* Run `npm run start` to start the application
+
+* You can access the application through default port: <http://localhost:3000>
+
+![Frontend image](./frontend.png)
 
 # Reference
 Victor Steven: [Restful API with NodeJS, Express, PostgreSQL, Sequelize, Travis, Mocha, Coveralls and Code Climate.](https://medium.com/@victorsteven/restful-api-with-nodejs-express-postgresql-sequelize-travis-mocha-coveralls-and-code-climate-f28715f7a014)
